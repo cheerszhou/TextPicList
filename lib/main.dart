@@ -19,27 +19,29 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+
+  final String? title;
   @override
   _MyHomePageState createState() => _MyHomePageState();
+
+  MyHomePage({this.title});
 }
 
 class _MyHomePageState extends State<MyHomePage> {
 
   RichTextList<CustomTypeList> textList = RichTextList()..initial();
   int currentPosition = 0;
-  TextEditingController currentController;
-  final String imageOne = "http://img.doutula.com/production/uploads/image//2019/04/14/20190414208307_QZFkLR.jpg";
-  final String imageTwo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555479650844&di=14ab3c085831c70e54636b9765df0759&imgtype=0&src=http%3A%2F%2Fimg1.gamersky.com%2Fupimg%2Fusers%2F2019%2F04%2F05%2Fsmall_201904052229268707.jpg";
-  final String imageThree = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2008566942,868517229&fm=11&gp=0.jpg";
+  late TextEditingController currentController;
+  final String imageOne = "https://img2.baidu.com/it/u=2376230547,617493641&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500";
+  final String imageTwo = "http://pic1.win4000.com/wallpaper/c/57b67b5ef372f.jpg";
+  final String imageThree = "http://pic1.win4000.com/wallpaper/8/548aab16ceff3.jpg?down";
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget?.title??""),
       ),
       body: Container(
         child:ListView.builder(
@@ -85,8 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
             heroTag: "single",
             onPressed: (){
               if(currentController == null) return;
-              textList.insertOne(currentPosition, getBeforeText(currentController), getSelectText(currentController),
-                  getAfterText(currentController), CustomTypeList(flag: TypeFlag.image,
+              textList.insertOne(currentPosition, getBeforeText(currentController)!, getSelectText(currentController)!,
+                  getAfterText(currentController)!, CustomTypeList(flag: TypeFlag.image,
                       imageUrl: imageOne));
               setState(() {
               });
@@ -99,9 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: (){
               if(currentController == null) return;
               textList.insert(currentPosition,
-                  getBeforeText(currentController),
-                  getSelectText(currentController),
-                  getAfterText(currentController),
+                  getBeforeText(currentController)!,
+                  getSelectText(currentController)!,
+                  getAfterText(currentController)!,
                   [CustomTypeList(flag: TypeFlag.image, imageUrl: imageTwo),
                   CustomTypeList(flag: TypeFlag.image, imageUrl: imageThree)]);
               setState(() {
@@ -117,15 +119,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-  String getAfterText(TextEditingController controller) {
+  String? getAfterText(TextEditingController controller) {
     return controller?.selection?.textAfter(controller.text);
   }
 
-  String getSelectText(TextEditingController controller) {
+  String? getSelectText(TextEditingController controller) {
     return controller?.selection?.textInside(controller.text);
   }
 
-  String getBeforeText(TextEditingController controller) {
+  String? getBeforeText(TextEditingController controller) {
     return controller?.selection?.textBefore(controller.text);
   }
 }

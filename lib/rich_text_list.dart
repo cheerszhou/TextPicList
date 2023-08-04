@@ -1,3 +1,5 @@
+import 'package:myself_project/custom_type_list.dart';
+
 class TextEntry<K, V> {
   K key;
   V value;
@@ -13,7 +15,7 @@ class RichTextList<T>{
 
   void initial(){
     if(_list.length > 0) throw UnsupportedError("列表已被初始化过");
-    _list.add(TextEntry(null, ""));
+    _list.add(TextEntry(CustomTypeList() as T, ''));
 
   }
 
@@ -32,7 +34,7 @@ class RichTextList<T>{
     if(t == null) throw ArgumentError("插入数据不能为空");
     _list[currentPosition].value = beforeText;
     _list.insert(currentPosition + 1, TextEntry(t, ""));
-    _list.insert(currentPosition + 2, new TextEntry(null, afterText));
+    _list.insert(currentPosition + 2, new TextEntry(CustomTypeList() as T, afterText));
   }
 
   void insert(int currentPosition, String beforeText, String selectText, String afterText, List<T> list){
@@ -44,7 +46,7 @@ class RichTextList<T>{
     _list[currentPosition].value = beforeText;
     for(int i = 0; i < list.length; i++){
       _list.insert(currentPosition + 2*i + 1, TextEntry(list[i], ""));
-      _list.insert(currentPosition + 2*i + 2, new TextEntry(null, i == list.length - 1?afterText:""));
+      _list.insert(currentPosition + 2*i + 2, new TextEntry(CustomTypeList() as T, i == list.length - 1?afterText:""));
     }
   }
 
